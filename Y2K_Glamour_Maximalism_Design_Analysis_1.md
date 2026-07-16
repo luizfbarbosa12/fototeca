@@ -660,6 +660,27 @@ When discussing Y2K Glamour Maximalism today, useful framing includes:
 - Show the contrast with contemporary minimalism
 - Discuss the historical and cultural moment
 
+### For This Specific Project: Fototeca's Artistic Portfolio
+
+This analysis is being applied to a real portfolio website for **Fototeca**, a nightlife photographer. Several constraints and intentions distinguish this project from a generic Y2K-inspired design:
+
+**Desktop & Mobile Availability:**
+The portfolio must be fully experienced on both desktop and mobile. This is not a desktop-first project with a mobile afterthought — both are primary targets. The atmospheric transitions, photo grid, and decorative elements must be designed and tested across screen sizes from the start.
+
+**Fluid Experience is Non-Negotiable:**
+Because this is an artistic portfolio — not a marketing site or commercial product page — blunt visual separations between sections would contradict the aesthetic philosophy itself. The Y2K Glamour Maximalism aesthetic is about immersion, sensuality, and a seamless sense of entering a world. Hard cuts between sections would break that world. All transitions must feel continuous and atmospheric, as if the user is physically moving through a space, not clicking through pages.
+
+**Photography as the Transition Medium:**
+Fototeca's own images (stored in a local folder of work) should be embedded into the transition experience itself, not held back until the portfolio section. Photographs should emerge from the darkening atmosphere during the day-to-night scroll — dissolving in, overlapping, glowing warmly against the shifting background. The content and the container should feel inseparable.
+
+**Decorative Asset Sourcing (Open Question):**
+The ornamental elements of the Y2K Glamour Maximalism aesthetic — stars, geometric shapes, textures, dividers — need to come from somewhere. This is an unresolved design decision:
+- **Free SVG libraries** (e.g., SVG Repo, The Noun Project, Flaticon free tier) offer broad selection but require curation to maintain aesthetic coherence
+- **Hand-selected assets** from multiple sources offer more control but take longer
+- **Custom-designed SVGs** ensure perfect fit but require additional design work
+
+The asset sourcing strategy must be decided before implementing the transition zone, as decorative elements are integral to the atmosphere, not optional embellishments.
+
 ### For Branding Entertainment/Nightlife
 
 **Applications:**

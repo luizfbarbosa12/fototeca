@@ -30,6 +30,35 @@ Create a photography portfolio website that visually represents entering the nig
 4. **Engagement** — Interactive elements and smooth transitions create memorable user experience
 5. **Aesthetic Integrity** — Maintain Y2K Glamour Maximalism while feeling current and technological
 
+### Platform Requirements: Desktop & Mobile
+
+This website must be fully functional and visually compelling on **both desktop and mobile devices**. The experience should not be degraded on mobile — it should be an intentional, adapted version of the same atmosphere:
+
+- **Desktop:** Full scroll-driven transition with parallax depth, multi-column asymmetrical photo grid, hover states on photos
+- **Mobile:** Touch-scrolled transition (adjusted speed to avoid rushing), single or 2-column grid, touch-active states replacing hover, larger typography for readability
+- **Both:** The day-to-night atmospheric journey, the image-driven transition, the Y2K Glamour Maximalism aesthetic
+
+Mobile is not a fallback — it is a first-class target. Decisions about animation complexity (e.g., parallax intensity, number of decorative elements) should always be evaluated against mobile performance.
+
+### Critical Design Constraint: Artistic Fluidity
+
+This is an **artistic portfolio**, not a product landing page or corporate site. This distinction fundamentally shapes every transition, animation, and layout decision.
+
+**No blunt section breaks.** Hard cuts, sudden color snaps, or visually jarring separations between sections would destroy the atmospheric experience the portfolio is meant to create. Every state change — from daytime to nighttime, from one gallery section to another — must feel like a **continuous, breathing experience**, not a series of slides clicking into place.
+
+The experience should feel like the user is physically moving through a space: stepping outside at dusk, walking into a venue, letting their eyes adjust to the warm light inside. There is no "click" in real life. There should be none here.
+
+**Image-Driven Transitions:**
+Fototeca's own photography should actively participate in the transition, not just appear at the end of it. The photographer's work exists in a local folder of images that will be used throughout the site. Some of these images will be incorporated into the transition zone itself — fading, dissolving, or emerging from the shifting color atmosphere — so that the content and the container blur together. The portfolio does not begin when the transition ends; it begins the moment the first photograph becomes visible.
+
+**Decorative Assets (TBD):**
+The site will require decorative graphic elements beyond photography — ornamental stars, textures, dividers, and atmospheric overlays that reinforce the Y2K Glamour Maximalism aesthetic. The sourcing strategy for these is **not yet decided** and remains an open design question:
+- **Option A:** Curate a free SVG library (e.g., SVG Repo, Heroicons, The Noun Project, or similar) and select elements that match the aesthetic
+- **Option B:** Hand-pick and customize individual assets from multiple free sources for a more bespoke feel
+- **Option C:** Design minimal custom SVGs from scratch for full aesthetic control
+
+This decision should be made before the transition zone is built, as these assets are load-bearing elements of the atmosphere.
+
 ### Target Audience
 - Event promoters, club owners, venue managers
 - Fashion and entertainment publications
@@ -898,6 +927,8 @@ a:hover::after {
 **Alternative Considered:**
 - Quick transition (snap at 50% scroll) — too jarring, loses impact
 
+> **Artistic Portfolio Note:** Because this site is a work of art as much as a functional portfolio, smoothness is not a preference — it is a requirement. Any animation or transition that feels mechanical, abrupt, or "web-like" breaks the immersive experience. Every easing curve should feel organic. When in doubt, err on the side of slower and softer.
+
 ### 2. Star Field Animation
 
 **Decision:** Twinkling, fading-in stars (not fixed constellation)
@@ -963,6 +994,190 @@ a:hover::after {
 
 **Alternative Considered:**
 - Extreme parallax (0.1x–2x) — disorienting, performance issues
+
+### 7. [IDEA — Not Yet Decided] Horizontal Scroll Gallery
+
+**Concept:** Instead of a traditional vertical photo grid, the portfolio section could use a **scroll-hijacked horizontal track**: as the user scrolls down, the viewport moves laterally, revealing photos one after another (or in groups) along a horizontal ribbon. When the horizontal track ends, normal vertical scroll resumes.
+
+**Reference:** Seen on the Unfold agency website — cards are laid out side by side and exposed progressively as the user scrolls down, creating a cinematic reveal feeling.
+
+**Why It Could Work for Fototeca:**
+- Feels like flipping through a physical contact sheet or a film strip — directly on-theme for a photographer
+- Forces the viewer to spend time with each image rather than skimming a grid
+- The lateral motion contrasts beautifully with the vertical descent of the day-to-night transition, giving the portfolio section its own distinct movement language
+- Creates a natural sense of "exploring" the collection
+- Pairs well with the atmospheric nighttime section: the user arrives in the dark, then begins moving through the photographs
+
+**Implementation Approach (if chosen):**
+- GSAP ScrollTrigger `pin` + `scrub` is the standard approach: pin the section, map horizontal `x` translation to vertical scroll progress
+- The horizontal distance determines how long the section stays pinned
+- Works with touch scroll on mobile (though may need reduced speed or a swipe-to-scroll fallback)
+
+**Open Questions:**
+- Does it work alongside the vertical day-to-night transition without feeling like two competing scroll tricks?
+- How does it behave on mobile — pure horizontal swipe, or still scroll-driven?
+- Should the full gallery be horizontal, or just a featured selection with a full grid accessible afterward?
+
+**Status:** Idea under consideration — not yet committed.
+
+### 8. [IDEA — Not Yet Decided] Stacking Sheets / Card-Over-Card Scroll
+
+**Concept:** Sections of the website slide up and layer on top of the previous one as the user scrolls, like physical sheets of paper being placed over each other. Each new section enters from the bottom and settles over the content above, creating a sense of depth and accumulation rather than linear progression.
+
+**Reference:** Seen on the Unfold agency website — content blocks (Brand & Identity, UI/UX Design, etc.) stack progressively as you scroll, with each new card covering the previous while leaving a sliver of what came before visible underneath.
+
+**Why It Could Work for Fototeca:**
+- The stacking metaphor resonates with the scrapbook and collage philosophy of Y2K Glamour Maximalism — physical layers, physical depth
+- It reinforces the feeling of entering a world: each layer brings you deeper in, like pushing through curtains into a venue
+- Works exceptionally well for the transition from daytime to nighttime — the nighttime "sheet" literally slides over and covers the daylight
+- Creates a sense that content is being revealed, not navigated to — fitting for an artist's portfolio
+- The overlap between sections can be partially visible (showing a hint of what's underneath), adding texture and mystery
+
+**Implementation Approach (if chosen):**
+- Each section uses `position: sticky` with a `z-index` that increases per section — the standard CSS-only stacking card pattern
+- The entering section slides up with a subtle `translateY` animation tied to scroll, settling with a soft ease
+- Can be combined with the day-to-night color transition: the nighttime section is the final card that slides over the transitional sky
+- GSAP ScrollTrigger can add fine-grained control (scale the card underneath slightly as the new one arrives, adding parallax depth)
+
+**Open Questions:**
+- Does this replace the day-to-night scroll transition, or sit alongside it as a separate mechanism for section transitions?
+- How many layers before it feels repetitive? Likely 3–4 maximum
+- Does each "sheet" have its own background color/texture, or are they all the same nighttime palette?
+- Mobile behavior: the sticky stacking pattern works well on touch devices with no changes needed
+
+**Status:** Idea under consideration — not yet committed.
+
+### 9. [IDEA — Not Yet Decided] Split-Screen Opposing Reveal
+
+**Concept:** The viewport is divided into two vertical columns. As the user scrolls, a photograph in the left column slides in from the **top** while a photograph in the right column slides in from the **bottom** simultaneously. The two images meet at the center, together filling the full screen. Each scroll step reveals a new pair of images through the same opposing motion.
+
+**Reference:** Seen on the Voyeur Vérité website — two images occupy left and right halves of the screen, entering from opposite vertical directions as the user scrolls, creating a closing-in or converging movement.
+
+**Why It Could Work for Fototeca:**
+- The opposing movement creates immediate visual tension and drama — fitting for nightlife photography, which is inherently about contrast (light/dark, movement/stillness, crowd/individual)
+- Showing two photos at once invites comparison and storytelling between images — a natural editorial instinct
+- The fullscreen scale gives each pair of photographs the presence they deserve; nothing is competing for attention
+- The entry direction (top vs. bottom) can carry symbolic weight: the daytime image descending from above, the nighttime image rising from below — which maps directly onto the day-to-night narrative of the site
+- Feels cinematic and high-end, consistent with the Y2K Glamour Maximalism aspiration
+
+**Implementation Approach (if chosen):**
+- Two `position: sticky` columns, each containing a photo with `overflow: hidden` and a clipping mask or `translateY` that is scrubbed via scroll progress
+- Left photo: `translateY(-100%)` → `translateY(0)` as scroll advances
+- Right photo: `translateY(100%)` → `translateY(0)` as scroll advances
+- GSAP ScrollTrigger `scrub` handles the synchronization smoothly; both animations tied to the same scroll trigger
+- Each "pair" of photos is its own pinned section; when the reveal completes, scroll unpins and moves to the next pair
+- A subtle pause at full-reveal (holding the image on screen for a beat) can be achieved with ScrollTrigger's `end` offset before unpinning
+
+**Open Questions:**
+- How many pairs of images? Too many and the pattern becomes repetitive; likely 3–5 featured pairs before transitioning to the broader gallery
+- Does each pair have a caption or title that appears after the reveal completes, or do the images speak alone?
+- On mobile: two columns become too narrow for portrait photographs — consider stacking the two images vertically on small screens (top image slides in from left, bottom image slides in from right), or switching to a single full-screen reveal per photo
+- Can the opposing reveal be the transition into the nighttime section itself — daytime image descending, nighttime image rising, meeting in the middle as the site "arrives" in the dark?
+
+**Status:** Idea under consideration — not yet committed.
+
+### 10. [IDEA — Not Yet Decided] Scroll-Driven Photo Expansion with Text Overlay
+
+**Concept:** A photograph begins as a **small, slightly rotated thumbnail** floating in the center of a solid-color background — almost like a physical photo lying at an angle on a table. As the user scrolls, the image simultaneously **scales up, straightens its rotation, and expands to fill the entire viewport**. Once fullscreen, large bold text is revealed overlaid directly on top of the photograph. The effect feels like picking up a photo and holding it up to your face until it becomes your whole world.
+
+**Reference:** Seen on the Voyeur Vérité website — starting with a tiny tilted rectangle on a red background with a subtitle below it, the image grows and rotates to upright as the user scrolls, eventually becoming a full-bleed photo with massive typographic text burned into the foreground.
+
+**The Sequence (Frame by Frame):**
+1. **Entry state:** Small centered image, tilted ~10–15°, surrounded by solid background color; a subtitle or label sits beneath it
+2. **Mid-scroll:** Image grows in scale, rotation gradually corrects toward 0°, background begins to recede behind the expanding photo
+3. **Near-full:** Image nearly fills the screen, rotation is neutral, background is no longer visible
+4. **Final state:** Full-bleed photograph spanning the entire viewport; large, bold display text appears over it (title, section name, or a phrase)
+
+**Why It Could Work for Fototeca:**
+- The small-to-fullscreen expansion creates an emotional crescendo — the photo starts intimate and private, like something discovered, and becomes overwhelming and immersive
+- The slight initial rotation reinforces the scrapbook/collage aesthetic of Y2K Glamour Maximalism: it looks like a physical photograph, not a digital asset
+- The bold text overlay at the end is a direct reference to nightlife editorial design — big type over a dark, atmospheric photograph is a club flyer, a magazine spread, a poster
+- This effect could serve as the hero sequence for the nighttime section: the first nightlife photo expands from a thumbnail into the full atmosphere, with "FOTOTECA" or a tagline burned over it as the reveal completes
+- The red/burgundy background visible during the small-photo stage transitions naturally into the dark photo itself as it expands — keeping the color continuity of the day-to-night palette
+
+**Implementation Approach (if chosen):**
+- The image is a fixed or sticky element with `transform: scale()` and `transform: rotate()` both tied to scroll progress via GSAP ScrollTrigger `scrub`
+- Scale goes from ~0.15 → 1.0; rotation goes from ~12deg → 0deg; both eased simultaneously
+- The surrounding background is a full-viewport colored div that the image sits on top of — as scale reaches 1.0 the background is fully hidden behind the photo
+- Text overlay uses `opacity: 0 → 1` triggered when scale is near completion, so it fades in only once the photo is fullscreen
+- The `will-change: transform` property on the image element is important for GPU performance during the continuous scale animation
+
+**Open Questions:**
+- How many photos use this treatment? It is high-impact but would lose power if repeated too many times — likely reserved for 1–2 hero moments on the page
+- Does the text that appears over the fullscreen photo stay as the user continues scrolling, or does it fade out as the next section begins?
+- What is the subtitle/label shown during the small-photo stage — a photo title, a date, a location, a collection name?
+- On mobile: the small rotated photo at ~15% viewport scale may be too small to read on a phone screen; consider starting at a larger initial scale (e.g., 35%) and reducing the rotation angle
+
+**Status:** Idea under consideration — not yet committed.
+
+### 11. [IDEA — Not Yet Decided] Geometric Clip-Path Carousel with Shifting Compositions
+
+**Concept:** A scroll- or navigation-driven carousel where each entry presents a photograph clipped inside a **custom geometric polygon shape** (sharp triangular fragments, angular cuts) rather than a rectangle. As the user moves between entries, the entire composition shifts — the shape arrangement changes position on screen, the polygon geometry morphs into a new form, a large typographic name anchors the bottom-left, and a body of text sits at the bottom-right. Each slide feels like an entirely different spatial composition, not just swapped content in a fixed frame.
+
+**Reference:** Voyeur Vérité website — https://www.voyeurverite.com/ — a "Lineage" section cycling through filmmakers (D.A. Pennebaker, Safi Faye, Shirley Clarke). Each entry uses a unique multi-triangle clipping composition built from sharp angular SVG shapes. The photo is revealed only through those geometric windows. The shape group shifts in screen position and geometry between entries. Built with **GSAP**.
+
+**The Anatomy of Each Slide:**
+- **Center:** A cluster of triangular/polygonal shapes, each acting as a clipping window into the photograph underneath. The shapes together form an abstract geometric composition — no two entries use the same arrangement
+- **Bottom-left:** Large, bold, uppercase name in a high-contrast color (the subject's identity as a design element, not just a label)
+- **Bottom-right:** Justified body text describing the subject, in a smaller weight — editorial, spaced-out lettering
+- **Bottom-center:** Pagination indicator (dot row with active dot highlighted)
+- **Background:** Clean, neutral — all the drama lives in the shape and the typography
+
+**Why It Could Work for Fototeca:**
+- Geometric clip-paths are a direct visual sibling to the star motifs and angular decorative elements of Y2K Glamour Maximalism — sharp geometry as a design language
+- Showing photos through non-rectangular windows creates intrigue: the viewer only sees fragments, which draws them in rather than giving everything at once
+- Each photo getting a unique geometric composition treats every image as its own art object, not a grid item
+- The large typographic anchor (name, collection title, location) at bottom-left gives the section editorial gravitas — feels like a magazine spread, not a website
+- This could work beautifully as the "Collections" or "Series" section of the portfolio: each collection gets its own geometric identity
+
+**Implementation Approach (if chosen):**
+- Photos are positioned absolutely and clipped using **SVG `clipPath`** elements or CSS `clip-path: polygon()` — each slide has its own predefined polygon coordinates
+- The transition between entries morphs the clip-path polygon points using GSAP's `morphSVG` or by tweening the `clip-path` polygon coordinates directly
+- The shape group's screen position (`x`, `y` translate) also animates between slides, so the composition recenters or shifts as part of the transition
+- The name and body text animate in with a stagger (text fade + slight upward translate) after the shape settles
+- GSAP timeline per slide: shape morph → position shift → text reveal, all sequenced on a single timeline
+- Pagination dots update on completion of each slide's timeline
+
+**Open Questions:**
+- What are the "entries" in Fototeca's version — individual photos, themed collections, venues, time periods?
+- How does the user trigger the next entry — scroll, arrow keys, click, or auto-advance with a timer?
+- The geometric shapes need to be designed: each one should feel intentional, not random. Who designs the polygon compositions for each entry?
+- On mobile: complex SVG clip-paths can be performance-heavy and the multi-column layout (name left, text right) collapses — needs a mobile-specific layout where name is top, shape is center, text is below
+
+**Status:** Idea under consideration — not yet committed.
+
+### 12. [IDEA — Not Yet Decided] Cursor Spotlight / Flashlight Reveal
+
+**Concept:** The mouse cursor becomes a circular spotlight. The background of a section is pitch black, concealing a photograph or decorative elements underneath. As the user moves their mouse, a soft circular "flashlight" follows the cursor and illuminates only what is directly beneath it — the rest remains dark. The content is there all along; it must be actively discovered.
+
+**Reference:** Daniel Korr photographer website — a stage light photograph is hidden in a fully black background. Moving the mouse reveals a circular window of the image, mimicking a real spotlight being aimed. The cursor itself is replaced by a small circle marker at the center of the light.
+
+**Why It Could Work for Fototeca:**
+- The theatrical metaphor is exact: nightlife photography lives under spotlights. Making the cursor a spotlight collapses the metaphor and the mechanic into one — the user literally controls the light
+- The act of revealing creates agency and intimacy; the visitor feels like they are discovering the image themselves, which is a fundamentally different emotional relationship than being shown it
+- Works beautifully as a teaser/entry moment: the hero section of the nighttime portfolio is dark, and the user must move their mouse to find what lives there — photographs, text, the photographer's name — before the section fully opens
+- The effect is exclusive to mouse/pointer users, which is perfectly acceptable here as a desktop-enhancement layer; mobile gets the full image visible without the concealment mechanic
+- Directly references the Y2K nightclub context: dark room, single light source, you can only see what the light touches
+
+**Implementation Approach (if chosen):**
+- A full-viewport dark overlay (`background: black`) sits on top of the photograph using `position: absolute` and `z-index`
+- The overlay uses a **radial gradient mask** or **CSS `mask-image`** with a radial gradient centered on the cursor position: `radial-gradient(circle 180px at {x}px {y}px, transparent 0%, black 100%)`
+- On `mousemove`, the gradient center updates to the current cursor coordinates via JavaScript — this is a single CSS property update per event, extremely performant
+- A soft falloff on the gradient edge (`transparent 0%, rgba(0,0,0,0.85) 60%, black 100%`) creates the warm penumbra of a real spotlight rather than a hard cutout
+- The cursor itself can be hidden (`cursor: none`) and replaced with a small custom SVG circle element that follows the mouse, mimicking the small ring seen in the reference
+- Optional: the spotlight radius can breathe slowly (`180px → 200px → 180px`) using a CSS keyframe animation independent of mouse position, simulating the flicker or pulse of a real stage light
+
+**Scope & Placement:**
+- This is not a full-page effect — it works best as a contained section or a deliberate entry moment
+- Strongest candidates: the very opening of the nighttime section (before the portfolio grid is revealed), or as an interactive "hidden" easter egg section where certain photos can only be found by exploring with the cursor
+- Should be disabled entirely on touch devices (no cursor, no spotlight — the image is simply visible at full opacity)
+
+**Open Questions:**
+- What exactly is hidden under the dark? A single hero photograph, a grid of multiple photos, text, or a combination?
+- Does the spotlight effect end automatically after a few seconds (transitioning to a fully-revealed state), or does it persist as long as the user is in that section?
+- How large should the spotlight radius be — intimate and narrow (feeling like a pinhole), or generous (feeling like a stage fresnel)?
+
+**Status:** Idea under consideration — not yet committed. Desktop-only enhancement; mobile shows content fully visible.
 
 ---
 
